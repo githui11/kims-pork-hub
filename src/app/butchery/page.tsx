@@ -4,70 +4,122 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const butcherItems = [
-    { size: "1kg", price: "KSH 600" },
-    { size: "1/2 kg", price: "KSH 300" },
-    { size: "1/4 kg", price: "KSH 150" },
+    { size: "1kg", price: "KSH 600", description: "Family Size" },
+    { size: "1/2 kg", price: "KSH 300", description: "Standard" },
+    { size: "1/4 kg", price: "KSH 150", description: "Sample" },
 ];
 
 export default function ButcherPage() {
     return (
-        <div className="relative min-h-screen bg-black">
-            {/* Black side margins */}
-            <div className="fixed top-0 left-0 w-16 md:w-24 lg:w-32 h-full bg-black z-10" />
-            <div className="fixed top-0 right-0 w-16 md:w-24 lg:w-32 h-full bg-black z-10" />
+        <div className="relative min-h-screen overflow-hidden bg-black">
+            {/* Full Screen Background Image - using absolute for better mobile support */}
+            <div
+                className="absolute inset-0 h-full w-full"
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    WebkitTransform: 'translateZ(0)',
+                    transform: 'translateZ(0)',
+                }}
+            >
+                <Image
+                    src="/images/butcher-bg.webp"
+                    alt="Premium pork cuts"
+                    fill
+                    className="object-cover"
+                    priority
+                    quality={90}
+                    sizes="100vw"
+                    style={{
+                        WebkitBackfaceVisibility: 'hidden',
+                        backfaceVisibility: 'hidden',
+                    }}
+                />
+                {/* Dark gradient overlay for text readability */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+            </div>
 
-            {/* Main content area with padding for margins */}
-            <div className="relative pt-32 px-20 md:px-28 lg:px-36 pb-20">
-                {/* Full Screen Background Image */}
-                <div className="fixed inset-0 -z-10">
-                    <Image
-                        src="/images/butcher-bg.webp"
-                        alt="Butcher Background"
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                </div>
-
-                <div className="relative z-10 max-w-5xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-16"
-                >
-                    <h1 className="text-6xl md:text-8xl font-display font-medium text-black mb-4 tracking-[-0.05em] lowercase drop-shadow-md">The Butchery</h1>
-                    <p className="text-sm text-black font-body font-bold tracking-widest uppercase drop-shadow-sm">Premium Raw Cuts</p>
-                </motion.div>
-
+            {/* Main content */}
+            <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-32">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="relative"
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-center max-w-4xl mx-auto"
                 >
+                    {/* Tagline */}
+                    <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 0.6 }}
+                        className="text-gold font-body text-xs tracking-[0.3em] uppercase block mb-6"
+                    >
+                        Premium Raw Cuts
+                    </motion.span>
 
-                    <div className="relative z-10 text-center mb-12">
-                        <span className="text-black font-body text-sm tracking-widest block mb-4 uppercase font-bold drop-shadow-sm">Fresh From Farm</span>
-                        <h2 className="text-4xl md:text-5xl font-display font-medium text-black tracking-[-0.05em] lowercase drop-shadow-md">Quality You Can Cook</h2>
-                        <p className="text-base text-black font-body font-bold tracking-[0.15em] mt-4 drop-shadow-sm">Take the Kim's Pork Hub experience home.</p>
-                    </div>
+                    {/* Main Heading */}
+                    <h1 className="text-7xl md:text-9xl font-display font-medium text-white mb-8 tracking-[-0.04em] lowercase">
+                        the butchery
+                    </h1>
 
-                    <div className="relative z-10 max-w-2xl mx-auto">
-                        <div className="grid grid-cols-3 gap-6">
-                            {butcherItems.map((item) => (
-                                <div key={item.size} className="flex flex-col items-center text-center p-6 border-2 border-black/80 rounded-sm hover:bg-black/5 hover:border-black transition-colors group">
-                                    <span className="text-base text-black font-body font-bold tracking-[0.1em] mb-2">
+                    {/* Subheading */}
+                    <p className="text-lg md:text-xl text-white/80 font-body font-light tracking-wide max-w-xl mx-auto mb-16">
+                        Take the Kim's Pork Hub experience home. Fresh from farm, quality you can cook.
+                    </p>
+                </motion.div>
+
+                {/* Pricing Cards */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.8 }}
+                    className="w-full max-w-3xl mx-auto"
+                >
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                        {butcherItems.map((item, index) => (
+                            <motion.div
+                                key={item.size}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+                                className="group relative"
+                            >
+                                <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-sm p-8 text-center hover:bg-white/15 hover:border-gold/40 transition-all duration-300">
+                                    {/* Size label */}
+                                    <span className="text-white/60 font-body text-xs tracking-[0.2em] uppercase block mb-2">
+                                        {item.description}
+                                    </span>
+
+                                    {/* Weight */}
+                                    <span className="text-white font-display text-2xl md:text-3xl font-medium tracking-tight block mb-4">
                                         {item.size}
                                     </span>
-                                    <span className="text-2xl md:text-4xl font-display font-semibold text-black tracking-[-0.02em]">
+
+                                    {/* Divider */}
+                                    <div className="w-12 h-px bg-gold/40 mx-auto mb-4" />
+
+                                    {/* Price */}
+                                    <span className="text-gold font-display text-3xl md:text-4xl font-semibold tracking-tight">
                                         {item.price}
                                     </span>
                                 </div>
-                            ))}
-                        </div>
+                            </motion.div>
+                        ))}
                     </div>
                 </motion.div>
-                </div>
+
+                {/* Bottom tagline */}
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.9, duration: 0.6 }}
+                    className="mt-16 text-white/50 font-body text-sm tracking-widest uppercase"
+                >
+                    Available Daily • Fresh Cuts Only
+                </motion.p>
             </div>
         </div>
     );
