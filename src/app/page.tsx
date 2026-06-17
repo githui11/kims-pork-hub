@@ -39,10 +39,19 @@ function Beat({
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sourcingRef = useRef<HTMLElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
+
+  // Fade canvas out as the sourcing section scrolls into view — eliminates dark canvas bleed
+  const { scrollYProgress: sourcingProgress } = useScroll({
+    target: sourcingRef,
+    offset: ["start end", "start start"]
+  });
+  const canvasOpacity = useTransform(sourcingProgress, [0.1, 0.9], [1, 0]);
 
   // Hero content fades out as user scrolls - extended to 20% to overlap with first beat
   const heroOpacity = useTransform(scrollYProgress, [0, 0.12, 0.18], [1, 1, 0]);
@@ -56,11 +65,11 @@ export default function Home() {
       <div ref={containerRef} className="relative h-[130vh] md:h-[150vh]">
         {/* The Canvas (Fixed) */}
         <div className="sticky top-0 h-screen overflow-hidden bg-black">
-          <div className="w-full h-full relative">
+          <motion.div style={{ opacity: canvasOpacity }} className="w-full h-full relative">
             <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10 pointer-events-none" />
             <PorkCanvas scrollYProgress={scrollYProgress} />
-          </div>
+          </motion.div>
 
           {/* Static Hero Content - Visible on Load */}
           <motion.div
@@ -201,7 +210,7 @@ export default function Home() {
       </div>
 
       {/* Sourcing Story Section */}
-      <section className="relative z-30 bg-charcoal py-24 px-6 border-t border-gold/10 -mt-[30vh] md:-mt-[40vh]">
+      <section ref={sourcingRef} className="relative z-30 bg-charcoal py-24 px-6 border-t border-gold/10 -mt-[30vh] md:-mt-[40vh]">
         <div className="max-w-4xl mx-auto text-center">
           <span className="text-gold/60 font-body text-xs tracking-widest block mb-6 uppercase font-light">Ethically Sourced</span>
           <h2 className="text-4xl md:text-6xl font-display font-light text-cream mb-8 tracking-[-0.03em] lowercase">
@@ -236,7 +245,7 @@ export default function Home() {
           loop
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-contain md:object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/videos/background.mp4" type="video/mp4" />
         </video>
