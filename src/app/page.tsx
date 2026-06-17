@@ -63,7 +63,7 @@ export default function Home() {
           <motion.div style={{ opacity: canvasOpacity }} className="w-full h-full relative">
             <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10 pointer-events-none" />
-            <PorkCanvas />
+            <PorkCanvas scrollYProgress={scrollYProgress} />
           </motion.div>
 
           {/* Static Hero Content - Visible on Load */}

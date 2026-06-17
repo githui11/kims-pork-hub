@@ -1,21 +1,20 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
-import { useScroll, useSpring } from "framer-motion";
+import { useSpring, type MotionValue } from "framer-motion";
 
 const FRAME_COUNT = 192;
 const IMAGES_PATH = "/images/sequence";
 const INITIAL_FRAMES = 10; // Load first 10 frames immediately for fast initial render
 const BATCH_SIZE = 20; // Load remaining frames in batches
 
-export default function PorkCanvas() {
+export default function PorkCanvas({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [images, setImages] = useState<(HTMLImageElement | null)[]>(() =>
         new Array(FRAME_COUNT).fill(null)
     );
     const [framesLoaded, setFramesLoaded] = useState(0);
     const [initialReady, setInitialReady] = useState(false);
-    const { scrollYProgress } = useScroll();
     const loadedRef = useRef<Set<number>>(new Set());
 
     // Smooth out the scroll progress for buttery animation
