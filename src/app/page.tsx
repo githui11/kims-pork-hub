@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import PorkCanvas from "@/components/PorkCanvas";
 import Link from "next/link";
-import { Star, Quote, Sun, Flame, Scissors, ChevronDown, MapPin, Phone } from "lucide-react";
+import { Star, Quote, Sun, Flame, Knife, ChevronDown, MapPin, Phone } from "lucide-react";
 
 // --- Components ---
 
@@ -273,7 +273,7 @@ export default function Home() {
             {[
               { title: "Source", desc: "Fresh pork from local farms. We know exactly where our meat comes from.", icon: <Sun size={40} className="text-burnt-orange" strokeWidth={1.5} /> },
               { title: "Fire", desc: "Slow-roasted over open flame until the skin crackles and the meat melts in your mouth.", icon: <Flame size={40} className="text-burnt-orange" strokeWidth={1.5} /> },
-              { title: "Skill", desc: "Expert butchers cut every piece just right for maximum tenderness and flavor.", icon: <Scissors size={40} className="text-burnt-orange" strokeWidth={1.5} /> }
+              { title: "Skill", desc: "Expert butchers cut every piece just right for maximum tenderness and flavor.", icon: <Knife size={40} className="text-burnt-orange" strokeWidth={1.5} /> }
             ].map((item, i) => (
               <motion.div
                 key={i}
