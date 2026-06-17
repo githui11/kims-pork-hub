@@ -44,9 +44,6 @@ export default function Home() {
     offset: ["start start", "end end"]
   });
 
-  // Calculate opacity for the canvas (fade out with the last beat)
-  const canvasOpacity = useTransform(scrollYProgress, [0.7, 0.75], [1, 0]);
-
   // Hero content fades out as user scrolls - extended to 20% to overlap with first beat
   const heroOpacity = useTransform(scrollYProgress, [0, 0.12, 0.18], [1, 1, 0]);
 
@@ -59,12 +56,11 @@ export default function Home() {
       <div ref={containerRef} className="relative h-[130vh] md:h-[150vh]">
         {/* The Canvas (Fixed) */}
         <div className="sticky top-0 h-screen overflow-hidden bg-black">
-          {/* We wrap PorkCanvas in a div that can fade out when hero ends */}
-          <motion.div style={{ opacity: canvasOpacity }} className="w-full h-full relative">
+          <div className="w-full h-full relative">
             <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10 pointer-events-none" />
             <PorkCanvas scrollYProgress={scrollYProgress} />
-          </motion.div>
+          </div>
 
           {/* Static Hero Content - Visible on Load */}
           <motion.div
