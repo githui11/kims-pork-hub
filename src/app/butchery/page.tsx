@@ -87,9 +87,9 @@ export default function ButcherPage() {
                                 transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
                                 className="group relative"
                             >
-                                <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-sm p-8 text-center hover:bg-white/15 hover:border-gold/40 transition-all duration-300">
+                                <div className="relative bg-charcoal/95 border border-gold/20 rounded-md p-8 text-center shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:border-gold hover:-translate-y-1 transition-all duration-500">
                                     {/* Size label */}
-                                    <span className="text-white/60 font-body text-xs tracking-[0.2em] uppercase block mb-2">
+                                    <span className="text-light-gray/60 font-body text-xs tracking-[0.2em] uppercase block mb-2">
                                         {item.description}
                                     </span>
 
