@@ -1,10 +1,23 @@
 "use client";
 
-import { useRef } from "react";
-import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { useScroll, useTransform, motion, MotionValue, AnimatePresence } from "framer-motion";
 import PorkCanvas from "@/components/PorkCanvas";
 import Link from "next/link";
-import { Star, Quote, Sun, Flame, UtensilsCrossed, ChevronDown, MapPin, Phone } from "lucide-react";
+import { Star, Quote, Sun, Flame, UtensilsCrossed, ChevronDown, ChevronLeft, ChevronRight, MapPin, Phone } from "lucide-react";
+
+// --- Data ---
+
+type Review = { quote: string; author: string; rating: number };
+
+const REVIEWS: Review[] = [
+  { quote: "Best pork in Kenol, hands down.", author: "Sarah W.", rating: 5 },
+  { quote: "The crackling alone is worth the drive from Thika.", author: "James M.", rating: 5 },
+  { quote: "Ribs are always tender, never dry — even when we show up late.", author: "Wanjiru K.", rating: 5 },
+  { quote: "Took the whole office here after a long week. Service was fast and the meat was still sizzling when it landed on the table.", author: "Brian O.", rating: 4 },
+  { quote: "Kachumbari and ugali on the side make it a full meal. This is our Sunday spot now.", author: "Esther N.", rating: 5 },
+  { quote: "Ordered 10kg for a family gathering — gone in under an hour. Quality you can taste.", author: "Peter K.", rating: 5 },
+];
 
 // --- Components ---
 
@@ -34,6 +47,76 @@ function Beat({
     >
       {children}
     </motion.div>
+  );
+}
+
+function ReviewsCarousel() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActive((p) => (p + 1) % REVIEWS.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const review = REVIEWS[active];
+
+  return (
+    <div className="max-w-2xl mx-auto px-6">
+      <div className="flex items-center justify-center gap-2 md:gap-6">
+        <button
+          onClick={() => setActive((p) => (p - 1 + REVIEWS.length) % REVIEWS.length)}
+          aria-label="Previous review"
+          className="hidden sm:flex shrink-0 text-gold/40 hover:text-gold transition-colors"
+        >
+          <ChevronLeft size={28} />
+        </button>
+
+        <div className="flex-1 min-w-0 max-w-xl overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -24 }}
+              transition={{ duration: 0.4 }}
+              className="p-8 md:p-10 bg-charcoal border border-gold/10 rounded-md text-center"
+            >
+              <Quote className="text-gold/30 mb-4 mx-auto" size={40} />
+              <p className="text-lg md:text-xl text-light-gray/80 mb-6 font-display font-extralight leading-relaxed tracking-[0.05em]">
+                "{review.quote}"
+              </p>
+              <div className="flex items-center justify-center gap-1 mb-3">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <Star key={s} className="text-gold" fill={s < review.rating ? "#D4AF37" : "none"} size={18} />
+                ))}
+              </div>
+              <p className="text-gold/50 text-xs tracking-widest uppercase font-body font-light">{review.author}</p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <button
+          onClick={() => setActive((p) => (p + 1) % REVIEWS.length)}
+          aria-label="Next review"
+          className="hidden sm:flex shrink-0 text-gold/40 hover:text-gold transition-colors"
+        >
+          <ChevronRight size={28} />
+        </button>
+      </div>
+
+      <div className="flex items-center justify-center gap-2 mt-8">
+        {REVIEWS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            aria-label={`Go to review ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${i === active ? "w-6 bg-gold" : "w-1.5 bg-gold/30 hover:bg-gold/50"}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -305,23 +388,8 @@ export default function Home() {
           <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent mx-auto mt-8" />
         </div>
 
-        {/* Single Review */}
-        <div className="max-w-xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="p-8 md:p-10 bg-charcoal border border-gold/10 rounded-md text-center"
-          >
-            <Quote className="text-gold/30 mb-4 mx-auto" size={40} />
-            <p className="text-lg md:text-xl text-light-gray/80 mb-6 font-display font-extralight leading-relaxed tracking-[0.05em]">
-              "Best pork in Kenol, hands down."
-            </p>
-            <div className="flex items-center justify-center gap-1">
-              {[1, 2, 3, 4, 5].map(s => <Star key={s} className="text-gold" fill="#D4AF37" size={18} />)}
-            </div>
-          </motion.div>
-        </div>
+        {/* Reviews Carousel */}
+        <ReviewsCarousel />
       </section>
 
       {/* 4) The Closer */}
