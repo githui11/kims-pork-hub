@@ -159,8 +159,8 @@ export default function Home() {
             style={{ opacity: heroOpacity }}
             className="absolute inset-0 z-20 pointer-events-none"
           >
-            {/* Main Title - centered at 40%, but never closer than 150px to the nav */}
-            <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[max(150px,40%)] text-center w-full px-6">
+            {/* Main Title - sits closer to the nav on mobile (tall, narrow viewports); 40% anchor kept for tablet/desktop where short viewports need the clearance */}
+            <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[max(170px,34%)] sm:top-[max(150px,40%)] text-center w-full px-6">
 
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
