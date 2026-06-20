@@ -136,16 +136,16 @@ export default function Home() {
   });
   const canvasOpacity = useTransform(sourcingProgress, [0.1, 0.9], [1, 0]);
 
-  // Hero content fades out as user scrolls - extended to 20% to overlap with first beat
+  // Hero content fades out as user scrolls
   const heroOpacity = useTransform(scrollYProgress, [0, 0.12, 0.18], [1, 1, 0]);
 
   // Footer bar stays visible until hero section ends
-  const footerOpacity = useTransform(scrollYProgress, [0, 0.65, 0.75], [1, 1, 0]);
+  const footerOpacity = useTransform(scrollYProgress, [0, 0.74, 0.82], [1, 1, 0]);
 
   return (
     <main className="bg-black min-h-screen">
       {/* 1) Scrollytelling Hero */}
-      <div ref={containerRef} className="relative h-[130vh] md:h-[150vh]">
+      <div ref={containerRef} className="relative h-[170vh] md:h-[190vh]">
         {/* The Canvas (Fixed) */}
         <div className="sticky top-0 h-screen overflow-hidden bg-black">
           <motion.div style={{ opacity: canvasOpacity }} className="w-full h-full relative">
@@ -248,8 +248,8 @@ export default function Home() {
 
         {/* Beats - appear on scroll - adjusted timing for smooth transitions */}
 
-        {/* Beat A: 15-35% - overlaps with hero fade out */}
-        <Beat progress={scrollYProgress} range={[0.05, 0.20]}>
+        {/* Beat A: starts after hero is fully gone at 18% */}
+        <Beat progress={scrollYProgress} range={[0.20, 0.35]}>
           <h2 className="text-[clamp(3rem,7vw,6rem)] font-display font-light mb-6 leading-[0.95] tracking-[-0.05em] lowercase text-gold">
             The Gold<br />Standard
           </h2>
@@ -258,8 +258,8 @@ export default function Home() {
           </p>
         </Beat>
 
-        {/* Beat B: 32-52% */}
-        <Beat progress={scrollYProgress} range={[0.25, 0.40]}>
+        {/* Beat B: starts after Beat A ends */}
+        <Beat progress={scrollYProgress} range={[0.38, 0.52]}>
           <h2 className="text-[clamp(3rem,7vw,6rem)] font-display font-light mb-6 leading-[0.95] tracking-[-0.05em] lowercase text-cream">
             Worth<br />Coming Back
           </h2>
@@ -268,8 +268,8 @@ export default function Home() {
           </p>
         </Beat>
 
-        {/* Beat C: 55-75% */}
-        <Beat progress={scrollYProgress} range={[0.45, 0.60]}>
+        {/* Beat C: starts after Beat B ends */}
+        <Beat progress={scrollYProgress} range={[0.55, 0.68]}>
           <h2 className="text-[clamp(3rem,7vw,6rem)] font-display font-light mb-6 leading-[0.95] tracking-[-0.05em] lowercase text-gold">
             Culinary<br />Excellence
           </h2>
@@ -278,8 +278,8 @@ export default function Home() {
           </p>
         </Beat>
 
-        {/* Beat D: 78-98% - fades out before hero ends */}
-        <Beat progress={scrollYProgress} range={[0.60, 0.75]}>
+        {/* Beat D: starts after Beat C ends */}
+        <Beat progress={scrollYProgress} range={[0.68, 0.80]}>
           <h2 className="text-[clamp(3rem,7vw,6rem)] font-display font-light mb-6 leading-[0.95] tracking-[-0.05em] lowercase text-cream">
             Free Delivery
           </h2>
