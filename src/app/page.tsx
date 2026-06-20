@@ -145,7 +145,7 @@ export default function Home() {
   return (
     <main className="bg-black min-h-screen">
       {/* 1) Scrollytelling Hero */}
-      <div ref={containerRef} className="relative h-[170vh] md:h-[190vh]">
+      <div ref={containerRef} className="relative h-[135vh] md:h-[150vh]">
         {/* The Canvas (Fixed) */}
         <div className="sticky top-0 h-screen overflow-hidden bg-black">
           <motion.div style={{ opacity: canvasOpacity }} className="w-full h-full relative">
