@@ -9,6 +9,7 @@ import { Menu, X } from 'lucide-react'; // Ensure lucide-react is installed, che
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const pathname = usePathname();
     const isButcheryPage = pathname === '/butchery';
 
@@ -16,6 +17,8 @@ export default function Navbar() {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
         };
+        handleScroll();
+        setMounted(true);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -42,14 +45,13 @@ export default function Navbar() {
     const alwaysDark = isButcheryPage;
 
     return (
-        <nav className={`fixed w-full z-50 top-0 left-0 transition-all duration-500 ${(scrolled || alwaysDark) ? 'py-4 bg-black/95 backdrop-blur-md border-b border-gold/20 shadow-md' : 'py-8 bg-transparent'}`}>
+        <nav className={`fixed w-full z-50 top-0 left-0 ${mounted ? 'transition-all duration-500' : ''} ${(scrolled || alwaysDark) ? 'py-4 bg-black/95 backdrop-blur-md border-b border-gold/20 shadow-md' : 'py-8 bg-transparent'}`}>
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                <Link href="/" className="transition-opacity hover:opacity-80 z-50 flex items-center">
+                <Link href="/" className="relative h-16 w-48 transition-opacity hover:opacity-80 z-50" style={{ position: 'relative', display: 'block', height: '4rem', width: '12rem' }}>
                     <Image
                         src="/logo.png"
                         alt="Kim's Pork Hub"
-                        width={192}
-                        height={64}
+                        fill
                         className="object-contain object-left"
                         priority
                     />

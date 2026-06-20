@@ -159,14 +159,14 @@ export default function Home() {
             style={{ opacity: heroOpacity }}
             className="absolute inset-0 z-20 pointer-events-none"
           >
-            {/* Main Title - pinned below nav, above CTAs */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pt-32 pb-52">
+            {/* Main Title - centered, but never closer than 150px to the nav */}
+            <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[max(150px,48%)] text-center w-full px-6">
 
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-[clamp(4rem,10vw,8rem)] font-display font-light mb-3 drop-shadow-xl tracking-[-0.05em] leading-[0.95] lowercase text-gold"
+                className="text-[clamp(2.5rem,min(10vw,9vh),8rem)] font-display font-light mb-3 drop-shadow-xl tracking-[-0.05em] leading-[0.95] lowercase text-gold"
               >
                 Kim's<br />Pork Hub
               </motion.h1>
