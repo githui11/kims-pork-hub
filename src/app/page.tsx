@@ -159,24 +159,14 @@ export default function Home() {
             style={{ opacity: heroOpacity }}
             className="absolute inset-0 z-20 pointer-events-none"
           >
-            {/* Main Title - Center */}
-            <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-full px-6">
-
-              {/* Decorative Element */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="mb-12 flex flex-col items-center gap-4"
-              >
-                <span className="text-[10px] font-body font-light tracking-[0.4em] text-gold/60 uppercase">Est. 2025</span>
-              </motion.div>
+            {/* Main Title - pinned below nav, above CTAs */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pt-32 pb-52">
 
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-[clamp(4rem,10vw,8rem)] font-display font-light mb-6 drop-shadow-xl tracking-[-0.05em] leading-[0.95] lowercase text-gold"
+                className="text-[clamp(4rem,10vw,8rem)] font-display font-light mb-3 drop-shadow-xl tracking-[-0.05em] leading-[0.95] lowercase text-gold"
               >
                 Kim's<br />Pork Hub
               </motion.h1>
@@ -184,12 +174,19 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-[clamp(0.7rem,1vw,0.9rem)] font-body font-extralight tracking-[0.3em] uppercase text-cream/70 mb-8"
+                className="text-[clamp(0.7rem,1vw,0.9rem)] font-body font-extralight tracking-[0.3em] uppercase text-cream/70 mb-3"
               >
                 Kenol Town's Finest Pork
               </motion.p>
+              <motion.span
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="text-[10px] font-body font-light tracking-[0.4em] text-gold/60 uppercase"
+              >
+                Est. 2025
+              </motion.span>
             </div>
-
 
           </motion.div>
 
