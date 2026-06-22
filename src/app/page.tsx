@@ -196,7 +196,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             style={{ opacity: footerOpacity }}
-            className="absolute bottom-36 sm:bottom-24 left-0 right-0 z-30 flex justify-center"
+            className="absolute bottom-44 sm:bottom-24 left-0 right-0 z-30 flex justify-center"
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/menu" className="bg-gold hover:bg-gold-bright text-charcoal font-body font-medium text-xs tracking-widest px-8 py-4 rounded-sm transition-all uppercase shadow-lg">
