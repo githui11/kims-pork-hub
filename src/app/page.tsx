@@ -216,7 +216,7 @@ export default function Home() {
             style={{ opacity: footerOpacity }}
             className="absolute bottom-0 left-0 right-0 p-6 z-30"
           >
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
               {/* Location */}
               <div className="flex items-center gap-2 text-cream/60 md:flex-1">
                 <MapPin size={14} />
